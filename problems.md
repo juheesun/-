@@ -49,7 +49,7 @@ x_5=
 \begin{bmatrix}
 2\\
 1
-\end{bmatrix}.
+\end{bmatrix}
 $$
 
 각 임베딩은 다음 토큰에 대응한다.
@@ -65,10 +65,8 @@ $$
 Self-Attention에서 Query, Key, Value는 각각
 
 $$
-q_i=W_Qx_i,
-\qquad
-k_i=W_Kx_i,
-\qquad
+q_i=W_Qx_i,\quad
+k_i=W_Kx_i,\quad
 v_i=W_Vx_i
 $$
 
@@ -81,19 +79,17 @@ W_Q=
 \begin{bmatrix}
 1&0\\
 0&1
-\end{bmatrix},
-\qquad
+\end{bmatrix},\quad
 W_K=
 \begin{bmatrix}
 1&0\\
 0&1
-\end{bmatrix},
-\qquad
+\end{bmatrix},\quad
 W_V=
 \begin{bmatrix}
 1&0\\
 0&1
-\end{bmatrix}.
+\end{bmatrix}
 $$
 
 이 문제에서는 두 번째 토큰인 **flies**의 Self-Attention을 계산한다.
@@ -123,17 +119,13 @@ $$
 `flies`의 Query $q_2$와 각 토큰의 Key $k_j$ 사이의 scaled dot-product attention score를 계산하시오.
 
 $$
-s_{j2}
-=
-\frac{q_2^T k_j}{\sqrt{d_k}}
+s_{j2}=\frac{q_2^T k_j}{\sqrt{d_k}}
 $$
 
 단,
 
 $$
-d_k=2,
-\qquad
-\sqrt{2}\approx1.414
+d_k=2,\quad \sqrt{2}\approx1.414
 $$
 
 로 한다.
@@ -145,24 +137,17 @@ $$
 Softmax를 이용하여 attention weight $w_{j2}$를 계산하시오.
 
 $$
-w_{j2}
-=
-\frac{\exp(s_{j2})}
-{\displaystyle\sum_{m=1}^{5}\exp(s_{m2})}
+w_{j2}=\frac{\exp(s_{j2})}{\sum_{m=1}^{5}\exp(s_{m2})}
 $$
 
 계산을 위해 다음 값을 사용할 수 있다.
 
 $$
-e^{-0.707}\approx0.493,
-\qquad
-e^{0.707}\approx2.028,
+e^{-0.707}\approx0.493,\quad e^{0.707}\approx2.028
 $$
 
 $$
-e^{1.414}\approx4.113,
-\qquad
-e^{2.121}\approx8.340.
+e^{1.414}\approx4.113,\quad e^{2.121}\approx8.340
 $$
 
 또한 어떤 단어가 `flies`에 가장 큰 attention weight를 갖는지 설명하시오.
@@ -174,17 +159,13 @@ $$
 Self-Attention 이후 $i$번째 토큰의 새로운 표현을 다음과 같이 정의한다.
 
 $$
-\boxed{
 x_i'=\sum_{j=1}^{n}w_{ji}x_j
-}
 $$
 
 `flies`는 두 번째 토큰이므로
 
 $$
-\boxed{
 x_2'=\sum_{j=1}^{5}w_{j2}x_j
-}
 $$
 
 이다.
@@ -200,30 +181,15 @@ Self-Attention으로 계산된 $x_2'$가 출력층으로 전달된다고 하자.
 출력층에서 후보 단어 `flies`, `soars`, `likes`에 대한 점수를 다음과 같이 계산한다.
 
 $$
-z_{\text{flies}}
-=
-\begin{bmatrix}
-0&0.5
-\end{bmatrix}
-x_2',
+z_{\text{flies}}=\begin{bmatrix}0&0.5\end{bmatrix}x_2'
 $$
 
 $$
-z_{\text{soars}}
-=
-\begin{bmatrix}
-1&0
-\end{bmatrix}
-x_2',
+z_{\text{soars}}=\begin{bmatrix}1&0\end{bmatrix}x_2'
 $$
 
 $$
-z_{\text{likes}}
-=
-\begin{bmatrix}
-0&1
-\end{bmatrix}
-x_2'.
+z_{\text{likes}}=\begin{bmatrix}0&1\end{bmatrix}x_2'
 $$
 
 각 점수를 계산하고 가장 높은 점수를 갖는 단어를 선택하시오.
